@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dentist Fulfillment Executive Dashboard — Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#d90429;--red2:#b0062a;--mar:#6a0a25;--pink:#fde8ec;--bd:#f1d3da;--tx:#3b0a17;--mu:#8a6670}
+*{box-sizing:border-box}body{margin:0;background:#fdf3f5;font-family:'Plus Jakarta Sans',Arial,sans-serif;color:var(--tx)}
+.banner{background:linear-gradient(135deg,var(--red),var(--red2));min-height:150px;padding:25px 28px;color:white}
+.bw{display:flex;gap:14px;align-items:center;max-width:1700px;margin:auto}.logo{width:48px;height:48px;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:25px;flex:none}
+h1{margin:0;color:#fff;font-size:clamp(21px,3vw,30px);font-weight:800;letter-spacing:-.5px}.sub{color:#ffd9e0;font-size:13px;font-weight:600;margin-top:5px}
+.main{max-width:1700px;margin:-35px auto 40px;padding:0 20px}.fbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#fff;border-radius:16px;padding:13px 16px;box-shadow:0 6px 20px #780a281f}
+select,.search{border:1px solid var(--bd);background:#fff;border-radius:9px;padding:10px 12px;font-size:13px;color:var(--tx);min-width:170px}.tg{font-size:13px;display:flex;gap:6px;align-items:center;margin-left:auto}.refresh{border:0;background:var(--red);color:#fff;padding:11px 18px;border-radius:10px;cursor:pointer;font-weight:700}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:18px 0 14px}.card{display:flex;gap:12px;background:#fff;border:1px solid var(--bd);border-radius:15px;padding:15px;box-shadow:0 3px 12px #780a2810}.ic{width:42px;height:42px;border-radius:12px;background:var(--pink);display:flex;align-items:center;justify-content:center;font-size:19px;flex:none}.l{font-size:11px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.5px}.v{font-size:28px;font-weight:800;line-height:1.2}.n{font-size:11px;color:#0e7490;font-weight:600;margin-top:3px}.bar{height:5px;background:var(--pink);border-radius:9px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--red)}.bad .v,.bad .n{color:var(--red)}
+.lg{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:11px;margin:12px 0 17px}.lg b{color:var(--mu);letter-spacing:.7px}.sw{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--bd);border-radius:99px;padding:5px 10px;font-weight:600}.sw i{width:12px;height:12px;border-radius:3px;border:1px solid #0002;display:inline-block}
+.cb{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:20px;box-shadow:0 4px 16px #780a281a;border:1px solid var(--bd)}.ch{background:linear-gradient(135deg,var(--red),var(--red2));display:flex;align-items:center;gap:10px;padding:12px 15px;color:#fff}.ch .logo{width:34px;height:34px;font-size:18px;border-radius:9px}.cn{font-size:18px;font-weight:800}.pill{background:#fff;color:var(--tx);border-radius:99px;padding:6px 11px;font-size:11px;font-weight:700;margin-left:auto}.pill.dp{margin-left:0;background:#ffffff33;color:#fff}
+.wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:1150px;table-layout:fixed}th{background:var(--mar);color:#fff;font-size:12px;font-weight:700;padding:8px 3px;border-right:1px solid #8c2a43}th small{display:block;font-size:10px;font-weight:500;opacity:.85;margin-top:2px}th.sub{background:var(--pink);color:var(--tx);font-size:11px;font-weight:600;border-right:1px solid var(--bd)}th.duh{width:125px;text-align:left;padding-left:13px}
+td{border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:4px;vertical-align:middle;height:72px}td.du{padding:9px 12px;background:#fff}.dn1{font-size:14px;font-weight:800}.chip{display:inline-block;background:var(--pink);color:var(--red);font-size:10px;font-weight:700;border-radius:6px;padding:2px 7px;margin-top:4px}.cc{display:grid;grid-auto-rows:1fr;gap:3px;height:100%}.dc{border-radius:7px;padding:6px 4px;text-align:center;border:1px solid #0002;display:flex;flex-direction:column;justify-content:center;min-height:52px}.dn{font-size:10px;font-weight:700;line-height:1.3}.dt{font-size:9px;margin-top:2px;display:none}.showtime .dt{display:block}.cf{background:#fee2e2!important;border:1px dashed #ef4444!important;color:#dc2626!important}.trial{border:2px dashed #92400e!important}.bd{font-size:8px;font-weight:800;padding:1px 5px;border-radius:99px;background:#fff;color:#92400e;border:1px solid #92400e;margin-bottom:3px}.lib{background:repeating-linear-gradient(45deg,#d1d5db,#d1d5db 6px,#e5e7eb 6px,#e5e7eb 12px);color:#4b5563;font-weight:600;font-size:11px;text-align:center}.empty{text-align:center;padding:45px;color:var(--mu)}.foot{font-size:11px;color:var(--mu);padding:0 2px 20px}
+@media(max-width:850px){.summary{grid-template-columns:repeat(2,1fr)}.main{padding:0 10px}.tg{margin-left:0}}@media(max-width:480px){.summary{grid-template-columns:1fr 1fr}.card{padding:10px;gap:8px}.v{font-size:23px}.ic{width:34px;height:34px}}
+</style>
+</head>
+<body>
+<div class="banner"><div class="bw"><div class="logo">🦷</div><div><h1>Dentist Fulfillment Executive Dashboard</h1><div class="sub">DEMO DATA · Jadwal simulasi untuk 10 klinik</div></div></div></div>
+<main class="main">
+<div class="fbar">
+<select id="clinicFilter" aria-label="Filter klinik"><option value="">Semua Klinik</option></select>
+<select id="duFilter" aria-label="Filter dental unit"><option value="">Semua DU</option></select>
+<select id="dentistFilter" aria-label="Filter dokter"><option value="">Semua Dentist</option></select>
+<label class="tg"><input id="timeToggle" type="checkbox"> Tampilkan jam kerja</label>
+<button class="refresh" id="refreshBtn">⟳ Refresh</button>
+</div>
+<div class="summary">
+<div class="card"><div class="ic">📈</div><div style="flex:1"><div class="l">Occupancy Rate</div><div class="v" id="occ">0%</div><div class="bar"><i id="occB" style="width:0"></i></div><div class="n" id="occN"></div></div></div>
+<div class="card"><div class="ic">🦷</div><div><div class="l">Dental Unit</div><div class="v" id="duCount">0</div><div class="n">Dental Unit simulasi aktif</div></div></div>
+<div class="card"><div class="ic">🧑‍⚕️</div><div><div class="l">Dentist</div><div class="v" id="drCount">0</div><div class="n">Dentist simulasi aktif</div></div></div>
+<div class="card" id="cfCard"><div class="ic">🛡️</div><div><div class="l">Conflict Schedule</div><div class="v" id="cfCount">0</div><div class="n" id="cfNote"></div></div></div>
+</div>
+<div class="lg"><b>KETERANGAN</b><span class="sw"><i style="background:#fff"></i>Dentist GP</span><span class="sw"><i style="background:linear-gradient(90deg,#A64D79,#F1C232,#6AA84F)"></i>Spesialis</span><span class="sw"><i style="background:#FFF176"></i>Jadwal kosong</span><span class="sw"><i class="lib"></i>Tutup / Libur</span><span class="sw"><i style="background:#fff;border:2px dashed #92400e"></i>On Call</span><span class="sw"><i style="background:#fee2e2;border:1px dashed #ef4444"></i>Conflict</span></div>
+<div id="blocks"></div>
+<div class="foot">Catatan: seluruh data dokter, klinik, dan jadwal di dashboard ini fiktif untuk demo. Dashboard berjalan statis di GitHub Pages dan tidak terhubung ke Google Sheets.</div>
+</main>
+<script src="data.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');
+const hit=(r,d,s)=>r.day===d&&r.start<s.e&&r.end>s.s;
+function ink(h){if(!h||h.toUpperCase()==='#FFFFFF')return '#111';const m=/^#?([0-9a-f]{6})$/i.exec(h);if(!m)return '#111';const n=parseInt(m[1],16);return .299*(n>>16)+.587*((n>>8)&255)+.114*(n&255)<140?'#fff':'#111'}
+function unique(a){return [...new Set(a)]}
+function fillFilters(){
+  CLINICS.forEach(c=> $('clinicFilter').add(new Option(c,c)));
+  unique(DEMO_DATA.map(r=>r.duKey)).sort((a,b)=>parseInt(a.split(' ')[1])-parseInt(b.split(' ')[1])).forEach(d=>$('duFilter').add(new Option(d,d)));
+  DENTIST_NAMES.forEach(d=>$('dentistFilter').add(new Option(d,d)));
+}
+function selected(){return {clinic:$('clinicFilter').value,du:$('duFilter').value,dentist:$('dentistFilter').value}}
+function render(){
+ const f=selected();
+ const all=DEMO_DATA.filter(r=>(!f.clinic||r.clinic===f.clinic)&&(!f.du||r.duKey===f.du)&&(!f.dentist||r.dentist===f.dentist));
+ const groups={};all.forEach(r=>{const k=r.clinic+'||'+r.duKey;(groups[k]=groups[k]||{clinic:r.clinic,duKey:r.duKey,duNo:r.duNo,recs:[]}).recs.push(r)});
+ const rows=Object.values(groups).sort((a,b)=>a.clinic.localeCompare(b.clinic,'id')||a.duNo-b.duNo);
+ const slots=new Set(),occupied=new Set(),conflicts=new Set();
+ rows.forEach(x=>DAYS.forEach(d=>SLOTS.forEach((s,i)=>{const k=x.clinic+'|'+x.duKey+'|'+d+'|'+i;slots.add(k);if(x.recs.some(r=>hit(r,d,s)))occupied.add(k);if(x.recs.some(r=>hit(r,d,s)&&r.conflict))conflicts.add(k)})));
+ const occ=slots.size?Math.round(occupied.size/slots.size*100):0;
+ $('occ').textContent=occ+'%';$('occB').style.width=occ+'%';$('occN').textContent=occupied.size+' slot terisi dari '+slots.size;
+ $('duCount').textContent=rows.length;$('drCount').textContent=unique(all.map(r=>r.dentist)).length;$('cfCount').textContent=conflicts.size;$('cfNote').textContent=conflicts.size?'Perlu pengecekan':'Tidak ada schedule yang conflict';$('cfCard').className='card'+(conflicts.size?' bad':'');
+ const root=$('blocks');root.innerHTML='';
+ if(!rows.length){root.innerHTML='<div class="empty">Tidak ada jadwal untuk filter yang dipilih.</div>';return}
+ const byClinic={};rows.forEach(x=>(byClinic[x.clinic]=byClinic[x.clinic]||[]).push(x));
+ CLINICS.filter(c=>byClinic[c]).forEach(c=>root.appendChild(makeBlock(c,byClinic[c])));
+}
+function makeBlock(clinic,rows){
+ const box=document.createElement('section');box.className='cb';
+ const head=document.createElement('div');head.className='ch';
+ const logo=document.createElement('div');logo.className='logo';logo.textContent='🦷';
+ const title=document.createElement('div');title.className='cn';title.textContent=clinic;
+ const du=document.createElement('div');du.className='pill dp';du.textContent=rows.length+' DU';
+ const hours=document.createElement('div');hours.className='pill';hours.textContent='JAM OPERASIONAL 09:00 - 21:00';
+ head.append(logo,title,hours,du);box.appendChild(head);
+ const wrap=document.createElement('div');wrap.className='wrap';const table=document.createElement('table');
+ let h='<thead><tr><th rowspan="2" class="duh">Dental Unit</th>';
+ let sh='<tr>';
+ DAYS.forEach(day=>{h+='<th colspan="2">'+day+'<small>09:00 - 21:00</small></th>';SLOTS.forEach((s,i)=>sh+='<th class="sub">'+s.l+'</th>')});
+ table.innerHTML=h+'</tr>'+sh+'</tr></thead>';const tbody=document.createElement('tbody');
+ rows.forEach(x=>{
+   const tr=document.createElement('tr'),td=document.createElement('td');td.className='du';
+   const n=document.createElement('div');n.className='dn1';n.textContent=x.duKey;td.appendChild(n);tr.appendChild(td);
+   DAYS.forEach(day=>SLOTS.forEach((slot,si)=>{
+     const cell=document.createElement('td');const rs=x.recs.filter(r=>hit(r,day,slot));
+     if(day==='Sunday' && ['Klinik Jakarta Pusat','Klinik Jakarta Barat','Klinik Jakarta Timur','Klinik Jakarta Utara','Klinik Bali','Klinik Surabaya','Klinik Yogyakarta','Klinik Semarang'].includes(clinic)){cell.className='lib';cell.textContent='Tutup'}
+     else if(!rs.length){cell.style.background='#FFF176'}
+     else {const stack=document.createElement('div');stack.className='cc';unique(rs.map(r=>r.dentist)).forEach(name=>{const r=rs.find(z=>z.dentist===name);const card=document.createElement('div');card.className='dc'+(r.trial?' trial':'')+(r.conflict?' cf':'');card.style.background=r.conflict?'#fee2e2':r.color;card.style.color=r.conflict?'#dc2626':ink(r.color);if(r.trial){const badge=document.createElement('span');badge.className='bd';badge.textContent='ON CALL';card.appendChild(badge)}const nm=document.createElement('div');nm.className='dn';nm.textContent=(r.conflict?'⚠️ ':'')+r.dentist;const tm=document.createElement('div');tm.className='dt';tm.textContent=fmt(r.start)+' - '+fmt(r.end);card.append(nm,tm);stack.appendChild(card)});cell.appendChild(stack)}
+     tr.appendChild(cell);
+   }));
+   tbody.appendChild(tr);
+ });
+ table.appendChild(tbody);wrap.appendChild(table);box.appendChild(wrap);return box;
+}
+$('clinicFilter').addEventListener('change',render);$('duFilter').addEventListener('change',render);$('dentistFilter').addEventListener('change',render);
+$('timeToggle').addEventListener('change',e=>document.body.classList.toggle('showtime',e.target.checked));
+$('refreshBtn').addEventListener('click',()=>{render();$('refreshBtn').textContent='✓ Refreshed';setTimeout(()=> $('refreshBtn').textContent='⟳ Refresh',900)});
+fillFilters();render();
+</script>
+</body></html>
