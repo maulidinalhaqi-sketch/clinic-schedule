@@ -11,7 +11,7 @@
 .bw{display:flex;gap:14px;align-items:center;max-width:1700px;margin:auto}.logo{width:48px;height:48px;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:25px;flex:none}
 h1{margin:0;color:#fff;font-size:clamp(21px,3vw,30px);font-weight:800;letter-spacing:-.5px}.sub{color:#ffd9e0;font-size:13px;font-weight:600;margin-top:5px}
 .main{max-width:1700px;margin:-35px auto 40px;padding:0 20px}.fbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#fff;border-radius:16px;padding:13px 16px;box-shadow:0 6px 20px #780a281f}
-select,.search{border:1px solid var(--bd);background:#fff;border-radius:9px;padding:10px 12px;font-size:13px;color:var(--tx);min-width:170px}.tg{font-size:13px;display:flex;gap:6px;align-items:center;margin-left:auto}.refresh{border:0;background:var(--red);color:#fff;padding:11px 18px;border-radius:10px;cursor:pointer;font-weight:700}
+.mf{position:relative;min-width:190px}.mfb{width:100%;border:1px solid var(--bd);background:#fff;border-radius:9px;padding:10px 34px 10px 12px;font-size:13px;color:var(--tx);text-align:left;cursor:pointer;position:relative}.mfb:after{content:'▾';position:absolute;right:12px;color:var(--mu)}.mfp{display:none;position:absolute;z-index:40;top:calc(100% + 5px);left:0;width:280px;max-height:320px;overflow:auto;background:#fff;border:1px solid var(--bd);border-radius:10px;box-shadow:0 8px 22px #3c0a191f;padding:8px}.mfp.open{display:block}.mfsearch{width:100%;border:1px solid var(--bd);border-radius:7px;padding:8px;margin-bottom:6px;font:inherit;font-size:12px}.mfactions{display:flex;justify-content:space-between;gap:8px;padding:4px 2px 7px;font-size:12px;color:var(--red);font-weight:700}.mfactions span{cursor:pointer}.mfopt{display:flex;align-items:flex-start;gap:7px;padding:6px;border-radius:6px;font-size:12px;cursor:pointer}.mfopt:hover{background:var(--pink)}.mfopt input{margin-top:2px}.tg{font-size:13px;display:flex;gap:6px;align-items:center;margin-left:auto}.refresh{border:0;background:var(--red);color:#fff;padding:11px 18px;border-radius:10px;cursor:pointer;font-weight:700}
 .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:18px 0 14px}.card{display:flex;gap:12px;background:#fff;border:1px solid var(--bd);border-radius:15px;padding:15px;box-shadow:0 3px 12px #780a2810}.ic{width:42px;height:42px;border-radius:12px;background:var(--pink);display:flex;align-items:center;justify-content:center;font-size:19px;flex:none}.l{font-size:11px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.5px}.v{font-size:28px;font-weight:800;line-height:1.2}.n{font-size:11px;color:#0e7490;font-weight:600;margin-top:3px}.bar{height:5px;background:var(--pink);border-radius:9px;margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--red)}.bad .v,.bad .n{color:var(--red)}
 .lg{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:11px;margin:12px 0 17px}.lg b{color:var(--mu);letter-spacing:.7px}.sw{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--bd);border-radius:99px;padding:5px 10px;font-weight:600}.sw i{width:12px;height:12px;border-radius:3px;border:1px solid #0002;display:inline-block}
 .cb{background:#fff;border-radius:16px;overflow:hidden;margin-bottom:20px;box-shadow:0 4px 16px #780a281a;border:1px solid var(--bd)}.ch{background:linear-gradient(135deg,var(--red),var(--red2));display:flex;align-items:center;gap:10px;padding:12px 15px;color:#fff}.ch .logo{width:34px;height:34px;font-size:18px;border-radius:9px}.cn{font-size:18px;font-weight:800}.pill{background:#fff;color:var(--tx);border-radius:99px;padding:6px 11px;font-size:11px;font-weight:700;margin-left:auto}.pill.dp{margin-left:0;background:#ffffff33;color:#fff}
@@ -24,9 +24,9 @@ td{border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:4p
 <div class="banner"><div class="bw"><div class="logo">🦷</div><div><h1>Dentist Fulfillment Executive Dashboard</h1><div class="sub">DEMO DATA · Jadwal simulasi untuk 10 klinik</div></div></div></div>
 <main class="main">
 <div class="fbar">
-<select id="clinicFilter" aria-label="Filter klinik"><option value="">Semua Klinik</option></select>
-<select id="duFilter" aria-label="Filter dental unit"><option value="">Semua DU</option></select>
-<select id="dentistFilter" aria-label="Filter dokter"><option value="">Semua Dentist</option></select>
+<div class="mf" id="clinicFilter" aria-label="Filter klinik"></div>
+<div class="mf" id="duFilter" aria-label="Filter dental unit"></div>
+<div class="mf" id="dentistFilter" aria-label="Filter dokter"></div>
 <label class="tg"><input id="timeToggle" type="checkbox"> Tampilkan jam kerja</label>
 <button class="refresh" id="refreshBtn">⟳ Refresh</button>
 </div>
@@ -47,15 +47,51 @@ const fmt=m=>String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(
 const hit=(r,d,s)=>r.day===d&&r.start<s.e&&r.end>s.s;
 function ink(h){if(!h||h.toUpperCase()==='#FFFFFF')return '#111';const m=/^#?([0-9a-f]{6})$/i.exec(h);if(!m)return '#111';const n=parseInt(m[1],16);return .299*(n>>16)+.587*((n>>8)&255)+.114*(n&255)<140?'#fff':'#111'}
 function unique(a){return [...new Set(a)]}
-function fillFilters(){
-  CLINICS.forEach(c=> $('clinicFilter').add(new Option(c,c)));
-  unique(DEMO_DATA.map(r=>r.duKey)).sort((a,b)=>parseInt(a.split(' ')[1])-parseInt(b.split(' ')[1])).forEach(d=>$('duFilter').add(new Option(d,d)));
-  DENTIST_NAMES.forEach(d=>$('dentistFilter').add(new Option(d,d)));
+const FILTERS={clinic:new Set(),du:new Set(),dentist:new Set()};
+const FILTER_META={
+  clinic:{id:'clinicFilter',label:'Klinik',values:CLINICS},
+  du:{id:'duFilter',label:'Dental Unit',values:unique(DEMO_DATA.map(r=>r.duKey)).sort((a,b)=>parseInt(a.split(' ')[1])-parseInt(b.split(' ')[1]))},
+  dentist:{id:'dentistFilter',label:'Dentist',values:DENTIST_NAMES}
+};
+function buildMultiFilter(key){
+  const meta=FILTER_META[key],root=$(meta.id);root.innerHTML='';
+  const button=document.createElement('button');button.type='button';button.className='mfb';
+  const panel=document.createElement('div');panel.className='mfp';
+  const search=document.createElement('input');search.className='mfsearch';search.placeholder='Cari '+meta.label.toLowerCase()+'...';search.type='search';
+  const actions=document.createElement('div');actions.className='mfactions';
+  const selectAll=document.createElement('span');selectAll.textContent='Pilih semua';
+  const clear=document.createElement('span');clear.textContent='Hapus pilihan';
+  actions.append(selectAll,clear);panel.append(search,actions);
+  const list=document.createElement('div');panel.appendChild(list);
+  const options=[];
+  function updateLabel(){button.textContent=FILTERS[key].size?meta.label+': '+FILTERS[key].size+' dipilih':'Semua '+meta.label;}
+  meta.values.forEach(value=>{
+    const label=document.createElement('label');label.className='mfopt';
+    const cb=document.createElement('input');cb.type='checkbox';cb.value=value;
+    const text=document.createElement('span');text.textContent=value;label.append(cb,text);list.appendChild(label);
+    options.push({value,label,cb});
+    cb.addEventListener('change',()=>{cb.checked?FILTERS[key].add(value):FILTERS[key].delete(value);updateLabel();if(key==='clinic')refreshDUFilter();render()});
+  });
+  search.addEventListener('input',()=>{const q=search.value.toLowerCase();options.forEach(o=>o.label.style.display=o.value.toLowerCase().includes(q)?'flex':'none')});
+  selectAll.addEventListener('click',()=>{options.forEach(o=>{if(o.label.style.display!=='none'){o.cb.checked=true;FILTERS[key].add(o.value)}});updateLabel();if(key==='clinic')refreshDUFilter();render()});
+  clear.addEventListener('click',()=>{FILTERS[key].clear();options.forEach(o=>o.cb.checked=false);updateLabel();if(key==='clinic')refreshDUFilter();render()});
+  button.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('.mfp').forEach(p=>{if(p!==panel)p.classList.remove('open')});panel.classList.toggle('open')});
+  panel.addEventListener('click',e=>e.stopPropagation());root.append(button,panel);meta.options=options;meta.updateLabel=updateLabel;updateLabel();
 }
-function selected(){return {clinic:$('clinicFilter').value,du:$('duFilter').value,dentist:$('dentistFilter').value}}
+function refreshDUFilter(){
+  const meta=FILTER_META.du;
+  const clinics=FILTERS.clinic;
+  const allowed=unique(DEMO_DATA.filter(r=>!clinics.size||clinics.has(r.clinic)).map(r=>r.duKey)).sort((a,b)=>parseInt(a.split(' ')[1])-parseInt(b.split(' ')[1]));
+  [...FILTERS.du].forEach(v=>{if(!allowed.includes(v))FILTERS.du.delete(v)});
+  meta.values=allowed;
+  buildMultiFilter('du');
+  meta.options.forEach(o=>{o.cb.checked=FILTERS.du.has(o.value)});meta.updateLabel();
+}
+function fillFilters(){buildMultiFilter('clinic');buildMultiFilter('dentist');buildMultiFilter('du');document.addEventListener('click',()=>document.querySelectorAll('.mfp').forEach(p=>p.classList.remove('open')))}
+function selected(){return {clinic:FILTERS.clinic,du:FILTERS.du,dentist:FILTERS.dentist}}
 function render(){
  const f=selected();
- const all=DEMO_DATA.filter(r=>(!f.clinic||r.clinic===f.clinic)&&(!f.du||r.duKey===f.du)&&(!f.dentist||r.dentist===f.dentist));
+ const all=DEMO_DATA.filter(r=>(!f.clinic.size||f.clinic.has(r.clinic))&&(!f.du.size||f.du.has(r.duKey))&&(!f.dentist.size||f.dentist.has(r.dentist)));
  const groups={};all.forEach(r=>{const k=r.clinic+'||'+r.duKey;(groups[k]=groups[k]||{clinic:r.clinic,duKey:r.duKey,duNo:r.duNo,recs:[]}).recs.push(r)});
  const rows=Object.values(groups).sort((a,b)=>a.clinic.localeCompare(b.clinic,'id')||a.duNo-b.duNo);
  const slots=new Set(),occupied=new Set(),conflicts=new Set();
@@ -95,7 +131,6 @@ function makeBlock(clinic,rows){
  });
  table.appendChild(tbody);wrap.appendChild(table);box.appendChild(wrap);return box;
 }
-$('clinicFilter').addEventListener('change',render);$('duFilter').addEventListener('change',render);$('dentistFilter').addEventListener('change',render);
 $('timeToggle').addEventListener('change',e=>document.body.classList.toggle('showtime',e.target.checked));
 $('refreshBtn').addEventListener('click',()=>{render();$('refreshBtn').textContent='✓ Refreshed';setTimeout(()=> $('refreshBtn').textContent='⟳ Refresh',900)});
 fillFilters();render();
